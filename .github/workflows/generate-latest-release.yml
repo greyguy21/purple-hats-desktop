@@ -2,8 +2,8 @@ name: Generate Latest Release JSON
 
 on:
   workflow_dispatch:
-  # release:
-  #   types: [published, edited]
+  release:
+    types: [published, edited]
 
 jobs:
   generate_latest_release_json:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Get release data
       run: |
