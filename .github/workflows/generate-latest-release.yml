@@ -3,7 +3,7 @@ name: Generate Latest Release JSON
 on:
   workflow_dispatch:
   release:
-    types: [published, edited]
+    types: [released, prereleased]
 
 jobs:
   generate_latest_release_json:
