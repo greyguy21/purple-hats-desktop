@@ -27,8 +27,8 @@ jobs:
         LATEST_PRE_RELEASE_NOTES=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .body] | first')
         
         # Extract all release and pre-release tags as comma-separated strings
-        ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name] | join("\",\"")')
-        ALL_PRE_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name] | join("\",\"")')        
+        ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name | "\"\(.)\""] | join(",")')
+        ALL_PRE_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name | "\"\(.)\""] | join(",")')        
         
         # Create the JSON file
         echo "{
