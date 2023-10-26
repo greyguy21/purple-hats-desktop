@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        ref: ${{ github.ref_name }}
 
     - name: Get release data
       run: |
@@ -54,4 +52,5 @@ jobs:
         
         git add latest-release.json
         git commit -m "Update latest-release.json"
-        git push
+        git push origin HEAD:main
+
