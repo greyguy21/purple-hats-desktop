@@ -1,8 +1,8 @@
 {
-  "latestRelease": "0.0.5",
-  "latestPreRelease": "0.0.6",
-  "allReleaseTags": ["0.0.5","0.0.3","0.0.1"],
-  "allPreReleaseTags": ["0.0.6","0.0.4","0.0.2"],
+  "latestRelease": "0.0.6",
+  "latestPreRelease": "0.0.7",
+  "allReleaseTags": ["0.0.6","0.0.5","0.0.3","0.0.1"],
+  "allPreReleaseTags": ["0.0.7","0.0.4","0.0.2"],
   "latestReleaseNotes": "\n",
   "latestPreReleaseNotes": "\n\n\n"
 }
