@@ -23,8 +23,9 @@ jobs:
         LATEST_FE_RELEASE_TAG=$(echo "$LATEST_FE_RELEASE" | jq -r '.tag_name')
 
         # Extract the latest release and pre-release notes 
-        LATEST_RELEASE_NOTES=$(echo "$LATEST_FE_RELEASE" | jq -r '.body')
-        LATEST_PRE_RELEASE_NOTES=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .body] | first')
+        LATEST_RELEASE_NOTES=$(echo "$LATEST_FE_RELEASE" | jq -r '.body' | jq -s -R -r @json)
+        LATEST_PRE_RELEASE_NOTES=$(echo "$ALL_RELEASES" | jq -r '.[] | select(.prerelease) | .body' | jq -s -R -r @json)
+
         
         # Extract all release and pre-release tags as comma-separated strings
         ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name | "\"\(.)\""] | join(",")')
