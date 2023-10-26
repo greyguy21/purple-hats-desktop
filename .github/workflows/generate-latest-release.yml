@@ -27,8 +27,8 @@ jobs:
         LATEST_PRE_RELEASE_NOTES=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .body] | first')
         
         # Extract all release and pre-release tags as comma-separated strings
-        ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name] | join(",")')
-        ALL_PRE_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name] | join(",")')
+        ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name] | join("\",\"")')
+        ALL_PRE_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name] | join("\",\"")')        
         
         # Create the JSON file
         echo "{
@@ -38,7 +38,7 @@ jobs:
           \"allReleaseTags\": [$ALL_RELEASE_TAGS],
           \"allPreReleaseTags\": [$ALL_PRE_RELEASE_TAGS],
           \"latestReleaseNotes\": "$LATEST_RELEASE_NOTES",
-          \"latestPreReleaseNotes\": "$$LATEST_PRE_RELEASE_NOTES"
+          \"latestPreReleaseNotes\": "$LATEST_PRE_RELEASE_NOTES"
         }" > latest-release.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +50,7 @@ jobs:
       run: |
         git config --local user.name "${GITHUB_ACTOR}"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-
+        
         git add latest-release.json
         git commit -m "Update latest-release.json"
         git push
