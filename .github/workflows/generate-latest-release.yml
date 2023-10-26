@@ -2,8 +2,8 @@ name: Generate Latest Release JSON
 
 on:
   workflow_dispatch:
-  # release:
-  #   types: [published, edited]
+  release:
+    types: [published, edited]
 
 jobs:
   generate_latest_release_json:
