@@ -51,4 +51,4 @@ jobs:
         
         git add latest-release.json
         git commit -m "Update latest-release.json"
-        git push
+        git push origin:main
