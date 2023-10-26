@@ -21,6 +21,10 @@ jobs:
         LATEST_RELEASE_TAG=$(echo "$LATEST_RELEASE" | jq -r '.tag_name')
         LATEST_PRE_RELEASE_TAG=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name] | first')
         LATEST_FE_RELEASE_TAG=$(echo "$LATEST_FE_RELEASE" | jq -r '.tag_name')
+
+        # Extract the latest release and pre-release notes 
+        LATEST_RELEASE_NOTES=$(echo "$LATEST_FE_RELEASE" | jq -r '.body')
+        LATEST_PRE_RELEASE_NOTES=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .body] | first')
         
         # Extract all release and pre-release tags as comma-separated strings
         ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name] | join(",")')
@@ -32,7 +36,9 @@ jobs:
           \"latestPreRelease\": \"$LATEST_PRE_RELEASE_TAG\",
           \"latestFrontendRelease\": \"$LATEST_FE_RELEASE_TAG\",
           \"allReleaseTags\": [$ALL_RELEASE_TAGS],
-          \"allPreReleaseTags\": [$ALL_PRE_RELEASE_TAGS]
+          \"allPreReleaseTags\": [$ALL_PRE_RELEASE_TAGS],
+          \"latestReleaseNotes\": "$LATEST_RELEASE_NOTES",
+          \"latestPreReleaseNotes\": "$$LATEST_PRE_RELEASE_NOTES"
         }" > latest-release.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,8 +48,8 @@ jobs:
 
     - name: Commit JSON file
       run: |
-        git config --global user.email "github-actions@github.com"
-        git config --global user.name "GitHub Actions"
+        git config --local user.name "${GITHUB_ACTOR}"
+        git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
         git add latest-release.json
         git commit -m "Update latest-release.json"
