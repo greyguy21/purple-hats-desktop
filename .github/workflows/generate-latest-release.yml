@@ -41,7 +41,7 @@ jobs:
           \"allPreReleaseTags\": [$ALL_PRE_RELEASE_TAGS],
           \"latestReleaseNotes\": $LATEST_RELEASE_NOTES,
           \"latestPreReleaseNotes\": $LATEST_PRE_RELEASE_NOTES
-        }" > latest-release.json
+        }" > docs/latest-release.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
