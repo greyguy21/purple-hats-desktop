@@ -32,7 +32,8 @@ jobs:
         ALL_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease | not) | .tag_name | "\"\(.)\""] | join(",")')
         ALL_PRE_RELEASE_TAGS=$(echo "$ALL_RELEASES" | jq -r '[.[] | select(.prerelease) | .tag_name | "\"\(.)\""] | join(",")')
         
-        # Create the JSON file
+        # Create the JSON file in the 'docs' folder
+        mkdir -p docs
         echo "{
           \"latestRelease\": \"$LATEST_RELEASE_TAG\",
           \"latestPreRelease\": \"$LATEST_PRE_RELEASE_TAG\",
@@ -45,7 +46,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Show generated JSON
-      run: cat latest-release.json
+      run: cat docs/latest-release.json
 
     - name: Commit JSON file
       run: |
