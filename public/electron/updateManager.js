@@ -350,9 +350,10 @@ const run = async (updaterEventEmitter, latestRelease, latestPreRelease) => {
       if (fs.existsSync(macOSPrepackageBackend)) {
         // Trigger an unzip from Resources folder if backend does not exist or backend is older
         processesToRun.push(await unzipBackendAndCleanUp(macOSPrepackageBackend));
-      } else {
-        processesToRun.push(await downloadBackend(appFrontendVer), await unzipBackendAndCleanUp());
-      }
+      } 
+      // else {
+      //   processesToRun.push(await downloadBackend(appFrontendVer), await unzipBackendAndCleanUp());
+      // }
     }
 
     for (const proc of processesToRun) {
